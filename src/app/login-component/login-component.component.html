@@ -1,0 +1,46 @@
+<div class="d-flex align-items-center login-content content">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)">
+        <div class="d-flex justify-content-center">
+            <img src="./assets/img/bootstrap-solid.svg" alt="" width="80" height="80">
+        </div>
+        <h3 class="d-flex justify-content-center">用户登录</h3>
+        <div class="d-flex justify-content-center">
+            <p>Build form controls with floating labels via the <code>:placeholder-shown</code> pseudo-element. <a
+                    href="https://caniuse.com/#feat=css-placeholder-shown">Works in latest Chrome, Safari, and
+                    Firefox.</a></p>
+        </div>
+        <p *ngIf="myForm.invalid" class="text-danger">表单无效!</p>
+        <p>{{name$ | async}}</p>
+        <div class="form-group">
+            <label for="exampleInputEmail1">用户名</label>
+            <input type="text" class="form-control" id="UserName" aria-describedby="输入用户名" name="UserName"
+                [formControl]="userName" [ngClass]="{'is-invalid':userName.invalid,'is-valid':userName.valid}">
+            <div class="valid-feedback">
+                用户名填写正确！
+            </div>
+            <div class="invalid-feedback">
+                <span *ngIf="userName.hasError('required')">
+                    用户名必须填写！
+                </span>
+                <span *ngIf="!userName.hasError('required') && userName.hasError('invalidUser')">
+                    用户名必须以a开头！
+                </span>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">密码</label>
+            <input type="password" class="form-control" id="password" name="password" [formControl]="password"
+                [ngClass]="{'is-invalid':password.invalid,'is-valid':password.valid}">
+            <div class="valid-feedback">
+                密码填写正确！
+            </div>
+            <div class="invalid-feedback">
+                密码必须大于5位！
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="myForm.invalid" (click)="login()"
+            [routerLink]="['/management']">提交</button>
+        <p class="mt-5 text-muted">© 物联1802-37-姚烨</p>
+    </form>
+</div>

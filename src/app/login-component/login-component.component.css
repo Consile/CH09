@@ -1,0 +1,14 @@
+.login-content {
+    height: 100vh;
+}
+
+form{
+    width: 30rem;
+}
+
+.content{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* 移动元素本身50% */
+}
+
