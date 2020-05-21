@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, AbstractControl, Validators, FormControl } from
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { User } from './user';
+import { Router } from '@angular/router';
 
 function userNameValidator(control: FormControl): { [s: string]: boolean } {
   if (!control.value.match(/^a/)) {
@@ -26,7 +27,7 @@ export class LoginComponentComponent implements OnInit {
   baseUrl = 'http://127.0.0.1:8080/';
   currentUser: User;
 
-  constructor(private authService: AuthService, private fb: FormBuilder, private httpClient: HttpClient) {
+  constructor(private authService: AuthService, private fb: FormBuilder, private httpClient: HttpClient, private router: Router) {
     this.myForm = this.fb.group({
       'userName': ['', Validators.compose([Validators.required, userNameValidator])],
       'password': ['', Validators.compose([Validators.required, Validators.minLength(5)])]
@@ -48,8 +49,10 @@ export class LoginComponentComponent implements OnInit {
     this.httpClient.post(this.baseUrl + 'pwd', this.myForm.value).subscribe(
       (val: any) => {
         if (val.succ) {
+          console.log('连接成功');
           this.authService.login();
           this.myForm.valid;
+          this.router.navigate(['/management']);
         }
         else {
           alert('账号密码错误');
